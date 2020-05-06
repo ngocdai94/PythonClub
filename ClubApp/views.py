@@ -25,5 +25,5 @@ def meetingdetails(request, id):
         'attendance'  : attendance,
         'minutes' : minutes,
     }
-    return render(request, 'ClubApp/meetingdetail.html', context=context)
+    return render(request, 'ClubApp/meetingdetails.html', context=context)
     

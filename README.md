@@ -10,9 +10,10 @@ More Detail Here: http://congerprep.blogspot.com/2019/03/django-techreview-proje
 pip install psycopg2
 
 ## Some Python Command
-1. Activate PyThong Virtual Environment: venv\scripts\activate
+1. Activate PyThon Virtual Environment: venv\scripts\activate
 2. Run the server: python manage.py runserver
 3. Migrate classes to Database: 
     python manage.py makemigrations
     python manage.py migrate
 4. Create a superuser: python manage.py createsuperuser
+5. Run a test: python manage.py test -v 2
