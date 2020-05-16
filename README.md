@@ -9,7 +9,7 @@ More Detail Here: http://congerprep.blogspot.com/2019/03/django-techreview-proje
 5. Install psycopg2 (if running application errors)
 pip install psycopg2
 
-## Some Python Command
+## Some Python Commands
 1. Activate PyThon Virtual Environment: venv\scripts\activate
 2. Run the server: python manage.py runserver
 3. Migrate classes to Database: 
