@@ -112,3 +112,45 @@ class GetMeetingDetailTest(TestCase):
       response = self.client.get(reverse('meetingdetails', args=(self.meeting.id,)))
       # Assert that self.post is actually returned by the post_detail view
       self.assertEqual(response.status_code, 200)
+   
+class New_Resource_authentication_test(TestCase):
+    def setUp(self):
+        self.test_user=User.objects.create_user(username='testuser1', password='P@ssw0rd1')
+        self.resource=Resource.objects.create(resourcename="Python Resources",
+                                          resourcetype='2020-05-06',
+                                          url='https://drive.google.com/resourcelink',
+                                          date='2020-05-06',
+                                          userid=self.test_user,
+                                          description='Python Resources')
+
+    def test_redirect_if_not_logged_in(self):
+        response=self.client.get(reverse('newresource'))#newresource is the name "name" in urls.py
+        self.assertRedirects(response, '/accounts/login/?next=/ClubApp/newResource/')#method in views.py
+
+    def test_Logged_in_uses_correct_template(self):
+        login=self.client.login(username='testuser1', password='P@ssw0rd1')
+        response=self.client.get(reverse('newresource'))#newresource is the name "name" in urls.py
+        self.assertEqual(str(response.context['user']), 'testuser1')
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'ClubApp/newresource.html')
+
+class New_Meeting_authentication_test(TestCase):
+    def setUp(self):
+        self.test_user=User.objects.create_user(username='testuser1', password='P@ssw0rd1')
+        self.meeting=Meeting.objects.create(meetingtitle="Python Meeting",
+                                          meetingdate='2020-05-06',
+                                          meetingtime='9:00',
+                                          meetinglocation='Seattle',
+                                          meetingagenda='https://drive.google.com/agendalink')
+
+
+    def test_redirect_if_not_logged_in(self):
+        response=self.client.get(reverse('newmeeting'))#newmeeting is the name "name" in urls.py
+        self.assertRedirects(response, '/accounts/login/?next=/ClubApp/newMeeting/')#method in views.py
+
+    def test_Logged_in_uses_correct_template(self):
+        login=self.client.login(username='testuser1', password='P@ssw0rd1')
+        response=self.client.get(reverse('newmeeting'))#newmeeting is the name "name" in urls.py
+        self.assertEqual(str(response.context['user']), 'testuser1')
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'ClubApp/newmeeting.html')
